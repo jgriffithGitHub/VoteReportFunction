@@ -30,8 +30,8 @@ public class FunctionTest {
         queryParams.put("name", "Azure");
         doReturn(queryParams).when(req).getQueryParameters();
 
-        final Optional<String> queryBody = Optional.empty();
-        doReturn(queryBody).when(req).getBody();
+        //final Optional<String> queryBody = Optional.empty();
+        //doReturn(queryBody).when(req).getBody();
 
         doAnswer(new Answer<HttpResponseMessage.Builder>() {
             @Override

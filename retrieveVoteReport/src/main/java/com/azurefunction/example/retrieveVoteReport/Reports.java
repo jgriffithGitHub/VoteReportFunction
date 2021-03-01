@@ -2,6 +2,8 @@ package com.azurefunction.example.retrieveVoteReport;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -17,7 +19,7 @@ public class Reports
 
 	public String getElectionReport(Logger logger)
 	{
-		String retVal = "No Results";
+		String htmlRows = "<html><body><table>";
 		
 		try
 		{
@@ -35,6 +37,25 @@ public class Reports
 			Connection connection = DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
 			logger.info("Database connection test: " + connection.getCatalog());
 
+			htmlRows += "<tr>";
+			htmlRows += "<td>Vote</td>";
+			htmlRows += "<td>Count</td>";
+			htmlRows += "</tr>";
+			
+			String sqlSelect = "select voteName, count(vote) as totalVote from votes v join voteTypes vt on v.vote = vt.idVoteType group by v.vote";
+			PreparedStatement selectStatement = connection.prepareStatement(sqlSelect);
+		
+			ResultSet rs = selectStatement.executeQuery();
+			while(rs.next())
+			{
+				htmlRows += "<tr>";
+				htmlRows += "<td>" + rs.getString("voteName") + "</td>";
+				htmlRows += "<td>" + rs.getInt("totalVote") + "</td>";
+				htmlRows += "</tr>";
+			}
+			selectStatement.close();
+
+			
 			logger.info("Closing database connection");
 			connection.close();
 			
@@ -44,7 +65,8 @@ public class Reports
 			System.out.println("Exception: " + e.getMessage());
 			return "";
 		}
+		htmlRows += "</table></body></html>";
 		
-		return retVal;
+		return htmlRows;
 	}
 }

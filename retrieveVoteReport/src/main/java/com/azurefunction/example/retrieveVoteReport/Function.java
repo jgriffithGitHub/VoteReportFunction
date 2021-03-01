@@ -16,12 +16,8 @@ import java.util.logging.Logger;
  * Azure Functions with HTTP Trigger.
  */
 public class Function {
-    /**
-     * This function listens at endpoint "/api/HttpExample". Two ways to invoke it using "curl" command in bash:
-     * 1. curl -d "HTTP Body" {your host}/api/HttpExample
-     * 2. curl "{your host}/api/HttpExample?name=HTTP%20Query"
-     */
-    @FunctionName("HttpExample")
+
+    @FunctionName("RetrieveVoteReport")
     public HttpResponseMessage run(
             @HttpTrigger(
                 name = "req",
@@ -44,6 +40,6 @@ public class Function {
         
         Reports report = new Reports();
     	String reportHtml = report.getElectionReport(logger);
-        return request.createResponseBuilder(HttpStatus.OK).body("The lastest election results are in!").build();
+        return request.createResponseBuilder(HttpStatus.OK).body(reportHtml).build();
     }
 }
