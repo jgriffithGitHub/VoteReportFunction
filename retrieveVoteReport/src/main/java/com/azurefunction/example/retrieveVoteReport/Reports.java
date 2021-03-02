@@ -5,23 +5,18 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
-import java.util.Properties;
 import java.util.logging.Logger;
 
 import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
-import com.azure.core.util.polling.SyncPoller;
 import com.azure.identity.DefaultAzureCredential;
 import com.azure.identity.DefaultAzureCredentialBuilder;
 
 import com.azure.security.keyvault.secrets.SecretClient;
 import com.azure.security.keyvault.secrets.SecretClientBuilder;
-import com.azure.security.keyvault.secrets.models.DeletedSecret;
-import com.azure.security.keyvault.secrets.models.KeyVaultSecret;
 
 public class Reports
 {
-	private Logger logger;
-	
+	private Logger logger;	
 	private static final String KEY_VALUT_NAME = "azurefunctionsecrets";
 	
 	public Reports()
