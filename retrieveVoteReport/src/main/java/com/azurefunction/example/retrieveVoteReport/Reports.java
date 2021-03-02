@@ -19,7 +19,7 @@ public class Reports
 
 	public String getElectionReport(Logger logger)
 	{
-		String htmlRows = "<html><body><table>";
+		String htmlRows = "<html><head></head><body><table>";
 		
 		try
 		{
