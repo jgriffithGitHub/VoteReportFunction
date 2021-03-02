@@ -4,14 +4,25 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
 
 import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
+import com.azure.core.util.polling.SyncPoller;
+import com.azure.identity.DefaultAzureCredential;
+import com.azure.identity.DefaultAzureCredentialBuilder;
+
+import com.azure.security.keyvault.secrets.SecretClient;
+import com.azure.security.keyvault.secrets.SecretClientBuilder;
+import com.azure.security.keyvault.secrets.models.DeletedSecret;
+import com.azure.security.keyvault.secrets.models.KeyVaultSecret;
 
 public class Reports
 {
 	private Logger logger;
+	
+	private static final String KEY_VALUT_NAME = "azurefunctionsecrets";
 	
 	public Reports()
 	{
@@ -24,7 +35,39 @@ public class Reports
 		try
 		{
 			this.logger = logger;
+
+			Map<String, String> env = System.getenv();
+	        for (String envName : env.keySet()) {
+	            System.out.format("%s=%s%n",
+	                              envName,
+	                              env.get(envName));
+	        }
 			
+			logger.info("Loading secrets");
+			String keyVaultName = KEY_VALUT_NAME;
+			String keyVaultUri = "https://" + keyVaultName + ".vault.azure.net";
+			logger.info("keyVaultUri: " + keyVaultUri);
+
+		    DefaultAzureCredential defaultCredential = new DefaultAzureCredentialBuilder().build();
+			logger.info("Default Credential Builder created");
+
+			SecretClient secretClient = new SecretClientBuilder()
+			    .vaultUrl(keyVaultUri)
+			    .credential(defaultCredential)
+			    .buildClient();		
+			logger.info("Secret Client created");
+			
+			String url = secretClient.getSecret("url").getValue();
+			String user = secretClient.getSecret("user").getValue();
+			String password = secretClient.getSecret("password").getValue();
+			logger.info("URL: " + url);
+			logger.info("user: " + user);
+			logger.info("password: " + password);
+
+			Connection connection = DriverManager.getConnection(url, user, password);
+			logger.info("Database connection test: " + connection.getCatalog());
+			
+			/*
 			logger.info("Loading application properties");
 			Properties properties = new Properties();
 			properties.load(Function.class.getClassLoader().getResourceAsStream("application.properties"));
@@ -36,7 +79,8 @@ public class Reports
 
 			Connection connection = DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
 			logger.info("Database connection test: " + connection.getCatalog());
-
+			*/
+			
 			htmlRows += "<tr>";
 			htmlRows += "<td>Vote</td>";
 			htmlRows += "<td>Count</td>";
