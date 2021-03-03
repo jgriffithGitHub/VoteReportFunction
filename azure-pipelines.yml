@@ -49,13 +49,23 @@ steps:
   inputs:
     PathtoPublish: $(build.artifactstagingdirectory)    
 
+ Maven
 - task: AzureFunctionApp@1
   displayName: Azure Function App deploy
   inputs:
     azureSubscription: $(serviceConnectionToAzure)
-    appType: functionApp
+    appType: 'functionAppLinux'
     appName: $(appName)
     package: $(build.artifactstagingdirectory)
+    runtimeStack: 'JAVA|11'
+
+#- task: AzureFunctionApp@1
+#  displayName: Azure Function App deploy
+#  inputs:
+#    azureSubscription: $(serviceConnectionToAzure)
+#    appType: functionApp
+#    appName: $(appName)
+#    package: $(build.artifactstagingdirectory)
     
 # Maven
 #- task: AzureFunctionApp@1
