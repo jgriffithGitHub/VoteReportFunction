@@ -11,6 +11,7 @@ variables:
   # the name of your functionApp is what you provided as
   # stagingDirectory in pom.xml
   functionAppName: 'retrieveVoteReport'
+  POM_XML_Directory: 'retrieveVoteReport'
 # ...
 # Build your Java project and run tests with Apache Maven.
 # Add steps that analyze code, save build artifacts, deploy, and more:
@@ -25,7 +26,7 @@ pool:
 steps:
 - task: Maven@3
   inputs:
-    mavenPomFile: '$(functionAppName)/pom.xml'
+    mavenPomFile: '$(POM_XML_Directory)/pom.xml'
     mavenOptions: '-Xmx3072m'
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.8'
@@ -40,7 +41,7 @@ steps:
 - task: CopyFiles@2
   displayName: Copy Files
   inputs:
-    SourceFolder: $(system.defaultworkingdirectory)/$(functionAppName)/target/azure-functions/$(functionAppName)/
+    SourceFolder: $(system.defaultworkingdirectory)/$(POM_XML_Directory)/target/azure-functions/$(functionAppName)/
     Contents: '**'
     TargetFolder: $(build.artifactstagingdirectory)   
 
@@ -58,21 +59,4 @@ steps:
     appName: $(appName)
     package: $(build.artifactstagingdirectory)
     runtimeStack: 'JAVA|11'
-
-#- task: AzureFunctionApp@1
-#  displayName: Azure Function App deploy
-#  inputs:
-#    azureSubscription: $(serviceConnectionToAzure)
-#    appType: functionApp
-#    appName: $(appName)
-#    package: $(build.artifactstagingdirectory)
-    
-# Maven
-#- task: AzureFunctionApp@1
-#  inputs:
-#    azureSubscription: 'AzureJava(a3100fd0-81b9-46d0-b470-f2318b4f452e)'
-#    appType: 'functionAppLinux'
-#    appName: 'AzureJavaDemoFunction'
-#    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-#    runtimeStack: 'JAVA|11'
-    
+   
