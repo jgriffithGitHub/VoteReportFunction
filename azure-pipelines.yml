@@ -49,7 +49,7 @@ steps:
   inputs:
     PathtoPublish: $(build.artifactstagingdirectory)    
 
- Maven
+# Maven
 - task: AzureFunctionApp@1
   displayName: Azure Function App deploy
   inputs:
