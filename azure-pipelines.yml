@@ -1,12 +1,3 @@
-# Maven
-- task: AzureFunctionApp@1
-  inputs:
-    azureSubscription: 'AzureJava(a3100fd0-81b9-46d0-b470-f2318b4f452e)'
-    appType: 'functionAppLinux'
-    appName: 'AzureJavaDemoFunction'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    runtimeStack: 'JAVA|11'
-    
 # Build your Java project and run tests with Apache Maven.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
@@ -28,3 +19,13 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+
+# Maven
+- task: AzureFunctionApp@1
+  inputs:
+    azureSubscription: 'AzureJava(a3100fd0-81b9-46d0-b470-f2318b4f452e)'
+    appType: 'functionAppLinux'
+    appName: 'AzureJavaDemoFunction'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    runtimeStack: 'JAVA|11'
+    
