@@ -25,7 +25,7 @@ pool:
 steps:
 - task: Maven@3
   inputs:
-    mavenPomFile: 'retrieveVoteReport/pom.xml'
+    mavenPomFile: '$(functionAppName)/pom.xml'
     mavenOptions: '-Xmx3072m'
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.8'
@@ -35,13 +35,13 @@ steps:
     goals: 'package'
 
 # Maven
-- task: AzureFunctionApp@1
-  inputs:
-    azureSubscription: 'AzureJava(a3100fd0-81b9-46d0-b470-f2318b4f452e)'
-    appType: 'functionAppLinux'
-    appName: 'AzureJavaDemoFunction'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    runtimeStack: 'JAVA|11'
+#- task: AzureFunctionApp@1
+#  inputs:
+#    azureSubscription: 'AzureJava(a3100fd0-81b9-46d0-b470-f2318b4f452e)'
+#    appType: 'functionAppLinux'
+#    appName: 'AzureJavaDemoFunction'
+#    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+#    runtimeStack: 'JAVA|11'
     
 # ...
 # add these as the last steps
@@ -64,4 +64,4 @@ steps:
     azureSubscription: $(serviceConnectionToAzure)
     appType: functionApp
     appName: $(appName)
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    package: $(build.artifactstagingdirectory)
