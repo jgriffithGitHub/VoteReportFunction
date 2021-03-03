@@ -1,3 +1,17 @@
+# at the top of your YAML file 
+# set some variables that you'll need when you deploy
+variables:
+  # the name of the service connection that you created above
+  serviceConnectionToAzure: 'AzureJava(a3100fd0-81b9-46d0-b470-f2318b4f452e)'
+  #
+  # the name of your web app here is the same one you used above
+  # when you created the web app using the Azure CLI
+  appName: 'AzureJavaDemoFunction'
+  #
+  # the name of your functionApp is what you provided as
+  # stagingDirectory in pom.xml
+  functionAppName: 'retrieveVoteReport'
+# ...
 # Build your Java project and run tests with Apache Maven.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
@@ -29,3 +43,25 @@ steps:
     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
     runtimeStack: 'JAVA|11'
     
+# ...
+# add these as the last steps
+# to deploy to your app service
+- task: CopyFiles@2
+  displayName: Copy Files
+  inputs:
+    SourceFolder: $(system.defaultworkingdirectory)/target/azure-functions/$(functionAppName)/
+    Contents: '**'
+    TargetFolder: $(build.artifactstagingdirectory)   
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish Artifact
+  inputs:
+    PathtoPublish: $(build.artifactstagingdirectory)    
+
+- task: AzureFunctionApp@1
+  displayName: Azure Function App deploy
+  inputs:
+    azureSubscription: $(serviceConnectionToAzure)
+    appType: functionApp
+    appName: $(appName)
+    package: $(build.artifactstagingdirectory)
