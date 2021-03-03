@@ -31,12 +31,12 @@ public class Reports
 		{
 			this.logger = logger;
 
-			Map<String, String> env = System.getenv();
-	        for (String envName : env.keySet()) {
-	            System.out.format("%s=%s%n",
-	                              envName,
-	                              env.get(envName));
-	        }
+			//Map<String, String> env = System.getenv();
+	        //for (String envName : env.keySet()) {
+	        //    System.out.format("%s=%s%n",
+	        //                      envName,
+	        //                      env.get(envName));
+	        //}
 			
 			logger.info("Loading secrets");
 			String keyVaultName = KEY_VALUT_NAME;
@@ -55,9 +55,9 @@ public class Reports
 			String url = secretClient.getSecret("url").getValue();
 			String user = secretClient.getSecret("user").getValue();
 			String password = secretClient.getSecret("password").getValue();
-			logger.info("URL: " + url);
-			logger.info("user: " + user);
-			logger.info("password: " + password);
+			//logger.info("URL: " + url);
+			//logger.info("user: " + user);
+			//logger.info("password: " + password);
 
 			Connection connection = DriverManager.getConnection(url, user, password);
 			logger.info("Database connection test: " + connection.getCatalog());
@@ -93,7 +93,6 @@ public class Reports
 				htmlRows += "</tr>";
 			}
 			selectStatement.close();
-
 			
 			logger.info("Closing database connection");
 			connection.close();
