@@ -10,7 +10,7 @@ variables:
   #
   # the name of your functionApp is what you provided as
   # stagingDirectory in pom.xml
-  functionAppName: 'retrieveVoteReport'
+  functionAppName: '${project.build.directory}/azure-functions/retrieveVoteReport'
 # ...
 # Build your Java project and run tests with Apache Maven.
 # Add steps that analyze code, save build artifacts, deploy, and more:
