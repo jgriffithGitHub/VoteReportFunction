@@ -34,22 +34,13 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
 
-# Maven
-#- task: AzureFunctionApp@1
-#  inputs:
-#    azureSubscription: 'AzureJava(a3100fd0-81b9-46d0-b470-f2318b4f452e)'
-#    appType: 'functionAppLinux'
-#    appName: 'AzureJavaDemoFunction'
-#    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-#    runtimeStack: 'JAVA|11'
-    
 # ...
 # add these as the last steps
 # to deploy to your app service
 - task: CopyFiles@2
   displayName: Copy Files
   inputs:
-    SourceFolder: $(system.defaultworkingdirectory)/target/$(functionAppName)/
+    SourceFolder: $(system.defaultworkingdirectory)/target/azure-functions/$(functionAppName)/
     Contents: '**'
     TargetFolder: $(build.artifactstagingdirectory)   
 
@@ -65,3 +56,13 @@ steps:
     appType: functionApp
     appName: $(appName)
     package: $(build.artifactstagingdirectory)
+    
+# Maven
+#- task: AzureFunctionApp@1
+#  inputs:
+#    azureSubscription: 'AzureJava(a3100fd0-81b9-46d0-b470-f2318b4f452e)'
+#    appType: 'functionAppLinux'
+#    appName: 'AzureJavaDemoFunction'
+#    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+#    runtimeStack: 'JAVA|11'
+    
