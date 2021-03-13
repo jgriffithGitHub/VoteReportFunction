@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.azurefunction.example</groupId>
-    <artifactId>retrieveVoteReport</artifactId>
+    <artifactId>castVote</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -13,35 +13,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <azure.functions.maven.plugin.version>1.9.2</azure.functions.maven.plugin.version>
-        <azure.functions.java.library.version>1.4.2</azure.functions.java.library.version>
-        <functionAppName>retrieveVoteReport</functionAppName>
+        <azure.functions.java.library.version>1.4.0</azure.functions.java.library.version>
+        <functionAppName>castVote</functionAppName>
         <stagingDirectory>${project.build.directory}/azure-functions/${functionAppName}</stagingDirectory>
     </properties>
 
- <dependencyManagement>
-  <dependencies>
-    <dependency>
-      <groupId>com.azure</groupId>
-      <artifactId>azure-sdk-bom</artifactId>
-      <version>1.0.2</version>
-      <type>pom</type>
-      <scope>import</scope>
-    </dependency>
-  </dependencies>
-</dependencyManagement>
-   <dependencies>
-     <dependency>
-      <groupId>com.azure</groupId>
-      <artifactId>azure-core</artifactId>
-      <version>1.14.0</version> <!-- {x-version-update;com.azure:azure-core;dependency} -->
-    </dependency>
-
-    <dependency>
-      <groupId>com.azure</groupId>
-      <artifactId>azure-core-http-netty</artifactId>
-      <version>1.9.0</version> <!-- {x-version-update;com.azure:azure-core-http-netty;dependency} -->
-    </dependency>
-           <dependency>
+    <dependencies>
+        <dependency>
             <groupId>com.microsoft.azure.functions</groupId>
             <artifactId>azure-functions-java-library</artifactId>
             <version>${azure.functions.java.library.version}</version>
@@ -68,17 +46,27 @@
             <version>8.0.20</version>
         </dependency>
         
-  <dependency>
-    <groupId>com.azure</groupId>
-    <artifactId>azure-security-keyvault-secrets</artifactId>
-	<version>4.2.6</version>
-  </dependency>
-
-  <dependency>
-    <groupId>com.azure</groupId>
-    <artifactId>azure-identity</artifactId>
-	<version>1.2.4</version>
-  </dependency>
+		<!-- https://mvnrepository.com/artifact/com.microsoft.azure/azure-keyvault -->
+		<!--
+		<dependency>
+		    <groupId>com.microsoft.azure</groupId>
+		    <artifactId>azure-keyvault</artifactId>
+		    <version>1.2.4</version>
+		</dependency>
+		-->
+		<!-- https://mvnrepository.com/artifact/com.azure/azure-security-keyvault-secrets -->
+		<dependency>
+		    <groupId>com.azure</groupId>
+		    <artifactId>azure-security-keyvault-secrets</artifactId>
+		    <version>4.2.5</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.azure/azure-identity -->
+		<dependency>
+		    <groupId>com.azure</groupId>
+		    <artifactId>azure-identity</artifactId>
+		    <version>1.2.3</version>
+		</dependency>
 
     </dependencies>
 
@@ -117,7 +105,7 @@
                     <!-- <disableAppInsights></disableAppInsights> -->
                     <runtime>
                         <!-- runtime os, could be windows, linux or docker-->
-                        <os>windows</os>
+                        <os>linux</os>
                         <javaVersion>8</javaVersion>
                         <!-- for docker function, please set the following parameters -->
                         <!-- <image>[hub-user/]repo-name[:tag]</image> -->
