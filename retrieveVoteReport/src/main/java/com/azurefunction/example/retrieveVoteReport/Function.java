@@ -29,8 +29,16 @@ public class Function {
     	Logger logger = context.getLogger();
         logger.info("Java HTTP trigger processed a request.");
 
-        Reports report = new Reports();
-    	String reportHtml = report.getElectionReport(logger);
+        String reportHtml = "";
+        try
+        {
+	        Reports report = new Reports();
+	    	reportHtml = report.getElectionReport(logger);
+        }
+        catch(Exception e)
+        {
+            return request.createResponseBuilder(HttpStatus.OK).body("Exception: " + e.getMessage()).build();
+        }
     	
         return request.createResponseBuilder(HttpStatus.OK).header("Content-Type", "text/html").body(reportHtml).build();
     }
