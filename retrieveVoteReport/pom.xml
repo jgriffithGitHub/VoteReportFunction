@@ -19,11 +19,6 @@
     </properties>
 
     <dependencies>
-    	<dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-transport</artifactId>
-      <version>4.1.51.Final</version> <!-- {x-version-update;io.netty:netty-transport;external_dependency} -->
-    </dependency>
         <dependency>
             <groupId>com.microsoft.azure.functions</groupId>
             <artifactId>azure-functions-java-library</artifactId>
@@ -51,26 +46,16 @@
             <version>8.0.20</version>
         </dependency>
         
-		<!-- https://mvnrepository.com/artifact/com.microsoft.azure/azure-keyvault -->
-		<dependency>
-		    <groupId>com.microsoft.azure</groupId>
-		    <artifactId>azure-keyvault</artifactId>
+  <dependency>
+    <groupId>com.azure</groupId>
+    <artifactId>azure-identity</artifactId>
 		    <version>1.2.4</version>
-		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/com.azure/azure-security-keyvault-secrets -->
-		<dependency>
-		    <groupId>com.azure</groupId>
-		    <artifactId>azure-security-keyvault-secrets</artifactId>
-		    <version>4.2.5</version>
-		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/com.azure/azure-identity -->
-		<dependency>
-		    <groupId>com.azure</groupId>
-		    <artifactId>azure-identity</artifactId>
-		    <version>1.2.3</version>
-		</dependency>
+  </dependency>
+  <dependency>
+    <groupId>com.azure</groupId>
+    <artifactId>azure-security-keyvault-secrets</artifactId>
+		    <version>4.1.2</version>
+  </dependency>
 
     </dependencies>
 
