@@ -40,6 +40,7 @@ public class Function {
             return request.createResponseBuilder(HttpStatus.OK).body("Exception: " + e.getMessage()).build();
         }
     	
-        return request.createResponseBuilder(HttpStatus.OK).header("Content-Type", "text/html").body(reportHtml).build();
+        //return request.createResponseBuilder(HttpStatus.OK).header("Content-Type", "text/html").body(reportHtml).build();
+        return request.createResponseBuilder(HttpStatus.OK).body("OK").build();
     }
 }
