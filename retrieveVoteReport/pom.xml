@@ -30,7 +30,18 @@
   </dependencies>
 </dependencyManagement>
    <dependencies>
-        <dependency>
+     <dependency>
+      <groupId>com.azure</groupId>
+      <artifactId>azure-core</artifactId>
+      <version>1.14.0</version> <!-- {x-version-update;com.azure:azure-core;dependency} -->
+    </dependency>
+
+    <dependency>
+      <groupId>com.azure</groupId>
+      <artifactId>azure-core-http-netty</artifactId>
+      <version>1.9.0</version> <!-- {x-version-update;com.azure:azure-core-http-netty;dependency} -->
+    </dependency>
+           <dependency>
             <groupId>com.microsoft.azure.functions</groupId>
             <artifactId>azure-functions-java-library</artifactId>
             <version>${azure.functions.java.library.version}</version>
@@ -66,7 +77,7 @@
   <dependency>
     <groupId>com.azure</groupId>
     <artifactId>azure-identity</artifactId>
-		    <!-- <version>1.2.4</version> -->
+	<version>1.2.4</version>
   </dependency>
 
     </dependencies>
