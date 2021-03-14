@@ -4,9 +4,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
+
+import io.netty.handler.ssl.SslContext;
+import io.netty.handler.ssl.SslContextBuilder;
+import io.netty.handler.ssl.SslProvider;
+
 import com.azure.identity.DefaultAzureCredential;
 import com.azure.identity.DefaultAzureCredentialBuilder;
 import com.azure.security.keyvault.secrets.SecretClient;
@@ -27,6 +33,15 @@ public class Reports
 		
 		try
 		{
+			io.netty.handler.ssl.SslProvider.isAlpnSupported(SslProvider.JDK);
+			SslContextBuilder sslContextBuilder = SslContextBuilder.forClient()
+					.sslProvider(SslProvider.JDK)
+					.sessionCacheSize(0)
+					.sessionTimeout(0);
+			String[] protocols = new String[] { "TLSv1.2", "TLSv1.1", "TLSv1" };
+			sslContextBuilder.protocols(protocols);
+			SslContext sslContext = sslContextBuilder.build();			  
+			  
 			this.logger = logger;
 
 			//Map<String, String> env = System.getenv();

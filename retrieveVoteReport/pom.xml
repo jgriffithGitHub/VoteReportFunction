@@ -40,12 +40,18 @@
             <scope>test</scope>
         </dependency>
         
+     <dependency>
+      <groupId>com.azure</groupId>
+      <artifactId>azure-core-http-netty</artifactId>
+      <version>1.9.0</version> <!-- {x-version-update;com.azure:azure-core-http-netty;dependency} -->
+    </dependency>
+           
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.20</version>
         </dependency>
-        
+ 
 		<!-- https://mvnrepository.com/artifact/com.microsoft.azure/azure-keyvault -->
 		<!--
 		<dependency>
@@ -58,14 +64,14 @@
 		<dependency>
 		    <groupId>com.azure</groupId>
 		    <artifactId>azure-security-keyvault-secrets</artifactId>
-		    <version>4.3.0-beta.4</version>
+		    <version>4.2.6</version>
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/com.azure/azure-identity -->
 		<dependency>
 		    <groupId>com.azure</groupId>
 		    <artifactId>azure-identity</artifactId>
-		    <version>1.2.3</version>
+		    <version>1.2.4</version>
 		</dependency>
 
     </dependencies>
