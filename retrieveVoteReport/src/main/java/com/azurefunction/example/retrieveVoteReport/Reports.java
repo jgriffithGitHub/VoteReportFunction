@@ -4,14 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Map;
 import java.util.logging.Logger;
 
 import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
 import com.azure.identity.DefaultAzureCredential;
 import com.azure.identity.DefaultAzureCredentialBuilder;
-import com.azure.identity.EnvironmentCredential;
-import com.azure.identity.EnvironmentCredentialBuilder;
 import com.azure.security.keyvault.secrets.SecretClient;
 import com.azure.security.keyvault.secrets.SecretClientBuilder;
 
@@ -44,8 +41,7 @@ public class Reports
 			String keyVaultUri = "https://" + keyVaultName + ".vault.azure.net";
 			logger.info("keyVaultUri: " + keyVaultUri);
 
-		    //DefaultAzureCredential defaultCredential = new DefaultAzureCredentialBuilder().build();
-			EnvironmentCredential defaultCredential = new EnvironmentCredentialBuilder().build();
+		    DefaultAzureCredential defaultCredential = new DefaultAzureCredentialBuilder().build();
 			logger.info("Credential Builder created");
 			
 			SecretClient secretClient = new SecretClientBuilder()
