@@ -45,7 +45,7 @@ public class Reports
 			htmlRows += "<td>Count</td>";
 			htmlRows += "</tr>";
 
-			String sqlSelect = "select voteName, count(vote) as totalVote from votes v join voteTypes vt on v.vote = vt.idVoteType here idElection = " + electionId + " group by v.vote";
+			String sqlSelect = "select voteName, count(vote) as totalVote from votes v join voteTypes vt on v.vote = vt.idVoteType where idElection = " + electionId + " group by v.vote";
 			PreparedStatement selectStatement = connection.prepareStatement(sqlSelect);
 						
 			ResultSet rs = selectStatement.executeQuery();

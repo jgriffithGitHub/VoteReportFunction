@@ -32,8 +32,8 @@ public class Function {
         try
         {
         	PageBuilder pb = new PageBuilder();
-        	pb.loadTemplate();
         	int electionId = pb.setElectionId(logger);
+        	pb.loadTemplate();
         	pb.setTitle(logger);        	
 	    	pb.setVoteResults(electionId, logger);
 	    	reportHtml = pb.getPage();

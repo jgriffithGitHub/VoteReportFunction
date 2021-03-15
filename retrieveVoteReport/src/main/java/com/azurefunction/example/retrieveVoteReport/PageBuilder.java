@@ -45,7 +45,6 @@ public class PageBuilder
 	
 	public int setElectionId(Logger log)
 	{
-		int retVal = 0;
 		try
 		{
 			PreparedStatement selectStatement = connection
@@ -56,7 +55,6 @@ public class PageBuilder
 			{
 				log.info("Found a row");
 				electionId = rs.getInt("idElection");
-				retVal = electionId;
 			}
 			else
 			{
@@ -69,7 +67,7 @@ public class PageBuilder
 			e.printStackTrace();
 		}
 		
-		return retVal;
+		return electionId;
 	}
 	
 	public void setTitle(Logger log)
