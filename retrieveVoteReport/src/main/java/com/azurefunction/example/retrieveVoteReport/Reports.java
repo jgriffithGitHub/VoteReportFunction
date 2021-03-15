@@ -40,11 +40,6 @@ public class Reports
 			Connection connection = DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
 			logger.info("Database connection test: " + connection.getCatalog());
 			
-			htmlRows += "<tr>";
-			htmlRows += "<td>Vote</td>";
-			htmlRows += "<td>Count</td>";
-			htmlRows += "</tr>";
-
 			String sqlSelect = "select voteName, count(vote) as totalVote from votes v join voteTypes vt on v.vote = vt.idVoteType where idElection = " + electionId + " group by v.vote";
 			PreparedStatement selectStatement = connection.prepareStatement(sqlSelect);
 						
