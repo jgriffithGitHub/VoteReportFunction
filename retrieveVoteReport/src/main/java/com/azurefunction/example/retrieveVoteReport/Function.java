@@ -31,8 +31,12 @@ public class Function {
         String reportHtml = "";
         try
         {
-	        Reports report = new Reports();
-	    	reportHtml = report.getElectionReport(logger);
+        	PageBuilder pb = new PageBuilder();
+        	pb.loadTemplate();
+        	int electionId = pb.setElectionId(logger);
+        	pb.setTitle(logger);        	
+	    	pb.setVoteResults(electionId, logger);
+	    	reportHtml = pb.getPage();
         }
         catch(Exception e)
         {

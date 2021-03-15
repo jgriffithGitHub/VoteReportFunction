@@ -15,9 +15,16 @@ public class Reports
 	{
 	}
 
-	public String getElectionReport(Logger logger)
+	public static String getElectionReport(int electionId, Logger logger)
 	{
-		String htmlRows = "<html><head></head><body><table>";
+		String htmlRows = "<table class=\"table\">\n" + 
+							"	  <thead class=\"thead-dark\">\n" + 
+							"	    <tr>\n" + 
+							"	      <th scope=\"col\">Vote</th>\n" + 
+							"	      <th scope=\"col\">Count</th>\n" + 
+							"	    </tr>\n" + 
+							"	  </thead>\n" +
+							"     <tbody>\n";
 		
 		try
 		{		
@@ -37,10 +44,10 @@ public class Reports
 			htmlRows += "<td>Vote</td>";
 			htmlRows += "<td>Count</td>";
 			htmlRows += "</tr>";
-			
-			String sqlSelect = "select voteName, count(vote) as totalVote from votes v join voteTypes vt on v.vote = vt.idVoteType group by v.vote";
+
+			String sqlSelect = "select voteName, count(vote) as totalVote from votes v join voteTypes vt on v.vote = vt.idVoteType here idElection = " + electionId + " group by v.vote";
 			PreparedStatement selectStatement = connection.prepareStatement(sqlSelect);
-		
+						
 			ResultSet rs = selectStatement.executeQuery();
 			while(rs.next())
 			{
@@ -60,7 +67,7 @@ public class Reports
 			System.out.println("Exception: " + e.getMessage());
 			return "";
 		}
-		htmlRows += "</table></body></html>";
+		htmlRows += "</tbody>\n</table>";
 		
 		return htmlRows;
 	}
