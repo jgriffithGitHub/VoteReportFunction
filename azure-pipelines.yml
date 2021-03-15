@@ -6,7 +6,7 @@ variables:
   #
   # the name of your web app here is the same one you used above
   # when you created the web app using the Azure CLI
-  appName: 'AzureJavaDemoFunction'
+  appName: 'AzureExamplePollingReports'
   #
   # the name of your functionApp is what you provided as
   # stagingDirectory in pom.xml
