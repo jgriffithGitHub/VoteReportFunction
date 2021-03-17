@@ -32,11 +32,6 @@ public class Reports
 			Properties properties = new Properties();
 			properties.load(Function.class.getClassLoader().getResourceAsStream("application.properties"));
 
-			//logger.info("Connecting to the database");
-			//logger.info("URL: " + properties.getProperty("url"));
-			//logger.info("user: " + properties.getProperty("user"));
-			//logger.info("password: " + properties.getProperty("password"));
-
 			Connection connection = DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
 			logger.info("Database connection test: " + connection.getCatalog());
 			
@@ -57,7 +52,8 @@ public class Reports
 			connection.close();
 			
 			AbandonedConnectionCleanupThread.uncheckedShutdown();
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			System.out.println("Exception: " + e.getMessage());
 			return "";
