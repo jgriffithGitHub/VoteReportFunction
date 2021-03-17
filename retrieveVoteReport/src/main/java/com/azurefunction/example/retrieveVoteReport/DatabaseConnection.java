@@ -2,6 +2,7 @@ package com.azurefunction.example.retrieveVoteReport;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class DatabaseConnection
@@ -14,9 +15,7 @@ public class DatabaseConnection
 		try
 		{
 			properties = new Properties();
-			properties.load(Function.class.getClassLoader().getResourceAsStream("application.properties"));
-	
-			connection = DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
+			properties.load(Function.class.getClassLoader().getResourceAsStream("application.properties"));	
 		}
 		catch(Exception e)
 		{
@@ -26,6 +25,29 @@ public class DatabaseConnection
 	
 	public Connection getConnection()
 	{
+		try
+		{
+			if(connection == null)
+				connection = DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
 		return connection;
+	}
+	
+	public void closeConnection()
+	{
+		try
+		{
+			connection.close();
+			connection = null;
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }
